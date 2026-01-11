@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { Power3 } from "gsap";
@@ -26,8 +26,8 @@ export default function Navbar() {
     }
   }, [isOpen]);
 
-  // GSAP animation for the link hover effect
-  const handleLinkHover = (e) => {
+  // FIXED: Added proper TypeScript types for the MouseEvent
+  const handleLinkHover = (e: MouseEvent<HTMLAnchorElement>) => {
     gsap.to(e.currentTarget, {
       y: -5,
       scale: 1.1,
@@ -37,7 +37,8 @@ export default function Navbar() {
     });
   };
 
-  const handleLinkHoverOut = (e) => {
+  // FIXED: Added proper TypeScript types for the MouseEvent
+  const handleLinkHoverOut = (e: MouseEvent<HTMLAnchorElement>) => {
     gsap.to(e.currentTarget, {
       y: 0,
       scale: 1,

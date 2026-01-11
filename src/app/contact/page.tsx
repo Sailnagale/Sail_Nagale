@@ -2,13 +2,14 @@
 
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, MouseEvent } from "react";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhone } from "react-icons/fa";
 import ContactForm from "../components/contact/ContactForm";
 
 export default function ContactPage() {
   const pathname = usePathname();
-  const iconsRef = useRef([]);
+  // FIXED: Typed the ref array correctly
+  const iconsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   useEffect(() => {
     // Animate icons on initial load
@@ -22,7 +23,8 @@ export default function ContactPage() {
     });
   }, [pathname]);
 
-  const handleIconHover = (e) => {
+  // FIXED: Added MouseEvent type
+  const handleIconHover = (e: MouseEvent<HTMLAnchorElement>) => {
     gsap.to(e.currentTarget, {
       scale: 1.2,
       color: "#06b6d4",
@@ -30,7 +32,8 @@ export default function ContactPage() {
     });
   };
 
-  const handleIconHoverOut = (e) => {
+  // FIXED: Added MouseEvent type
+  const handleIconHoverOut = (e: MouseEvent<HTMLAnchorElement>) => {
     gsap.to(e.currentTarget, {
       scale: 1,
       color: "#ffffff",
@@ -83,7 +86,10 @@ export default function ContactPage() {
                 href="https://github.com/Sailnagale"
                 target="_blank"
                 rel="noopener noreferrer"
-                ref={(el) => (iconsRef.current[0] = el)}
+                // FIXED: Used curly braces to avoid implicit return
+                ref={(el) => {
+                  iconsRef.current[0] = el;
+                }}
                 onMouseEnter={handleIconHover}
                 onMouseLeave={handleIconHoverOut}
               >
@@ -93,7 +99,10 @@ export default function ContactPage() {
                 href="https://www.linkedin.com/in/sail-nagale-4891a5321/"
                 target="_blank"
                 rel="noopener noreferrer"
-                ref={(el) => (iconsRef.current[1] = el)}
+                // FIXED: Used curly braces
+                ref={(el) => {
+                  iconsRef.current[1] = el;
+                }}
                 onMouseEnter={handleIconHover}
                 onMouseLeave={handleIconHoverOut}
               >
@@ -101,7 +110,10 @@ export default function ContactPage() {
               </a>
               <a
                 href="mailto:sail.nagale24@vit.edu"
-                ref={(el) => (iconsRef.current[2] = el)}
+                // FIXED: Used curly braces
+                ref={(el) => {
+                  iconsRef.current[2] = el;
+                }}
                 onMouseEnter={handleIconHover}
                 onMouseLeave={handleIconHoverOut}
               >
