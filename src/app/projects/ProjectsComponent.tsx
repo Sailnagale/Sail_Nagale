@@ -1,4 +1,3 @@
-// src/app/projects/ProjectsComponent.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -12,28 +11,36 @@ gsap.registerPlugin(ScrollTrigger);
 const categories = ["Internship", "Hackathon", "Personal Project"];
 
 export default function ProjectsComponent() {
-  const sectionsRef = useRef([]);
+  // FIXED: Explicitly typed the ref array so TypeScript knows it contains HTML elements
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    sectionsRef.current.forEach((section, index) => {
-      const cardsContainer = section.querySelector(".cards-container");
-      const cards = section.querySelectorAll(".project-card");
+    // Optional: context for better cleanup
+    const ctx = gsap.context(() => {
+      sectionsRef.current.forEach((section) => {
+        if (!section) return; // Safety check
 
-      if (!cardsContainer || cards.length === 0) return;
+        const cardsContainer = section.querySelector(".cards-container");
+        const cards = section.querySelectorAll(".project-card");
 
-      gsap.from(cards, {
-        x: "100%",
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 70%",
-          toggleActions: "play none none none",
-        },
+        if (!cardsContainer || cards.length === 0) return;
+
+        gsap.from(cards, {
+          x: "100%",
+          opacity: 0,
+          stagger: 0.2,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 70%",
+            toggleActions: "play none none none",
+          },
+        });
       });
     });
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -51,7 +58,10 @@ export default function ProjectsComponent() {
         return (
           <div
             key={category}
-            ref={(el) => (sectionsRef.current[index] = el)}
+            // FIXED: Used curly braces to avoid implicit return error
+            ref={(el) => {
+              sectionsRef.current[index] = el;
+            }}
             className="mb-16"
           >
             <h2 className="text-3xl font-bold mb-8 text-white">{category}</h2>
