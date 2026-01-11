@@ -7,8 +7,8 @@ export const projects = [
     description:
       "During my internship at Agharkar Research Institute, I worked on a computer vision project to automatically identify and quantify damage in soybean seeds. The solution leverages deep learning (YOLOv8) to improve efficiency and accuracy in agricultural quality control processes. It detects specific damage types like purple blotch and mechanical cracks.",
     techStack: ["Python", "YOLOv8", "OpenCV", "Flask"],
-    gitHubLink: "https://github.com/yourusername/soybean-project", // Add your real link here
-    liveLink: "", // Leave empty if no live link
+    gitHubLink: "https://github.com/Sailnagale/Agharkar-Projects.git", // Add your real link here
+    liveLink: "https://agharkar-projects.vercel.app/", // Leave empty if no live link
     features: [
       "Automated counting of defective seeds",
       "Classification of 3 different damage types",
@@ -25,7 +25,7 @@ export const projects = [
       "This project focused on helping farmers by providing a tool for early detection of leaf miner infestation. The model analyzes leaf images to spot patterns of damage (mines), allowing for timely intervention and crop protection. It calculates the total percentage of leaf area damaged to grade the severity.",
     techStack: ["Python", "OpenCV", "Scikit-image", "Pandas"],
     gitHubLink: "https://github.com/yourusername/leaf-miner",
-    liveLink: "",
+    liveLink: "https://agharkar-projects.vercel.app/",
     features: [
       "Percentage damage calculation",
       "Severity grading (Low, Medium, High)",
@@ -42,7 +42,7 @@ export const projects = [
       "Designed and implemented an automated image processing system to analyze excavated legume root systems. The solution uses reference-object calibration to convert pixel data into real-world metrics (mm²), employing global thresholding and edge filtering to isolate nodules from background noise. The system automatically generates statistical reports in Excel, significantly reducing manual data collection time for agricultural research.",
     techStack: ["Python", "OpenCV", "Pandas", "NumPy", "Imutils"],
     gitHubLink: "https://github.com/yourusername/nodule-counter",
-    liveLink: "",
+    liveLink: "https://agharkar-projects.vercel.app/",
     features: [
       "Reference object calibration for scale",
       "Auto-count and Area measurement",
