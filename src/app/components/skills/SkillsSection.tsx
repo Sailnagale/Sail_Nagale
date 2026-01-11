@@ -12,36 +12,41 @@ export default function SkillsSection() {
   const skillsGridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!skillsGridRef.current) return;
+    // Optional: Use gsap.context for better cleanup
+    const ctx = gsap.context(() => {
+      if (!skillsGridRef.current) return;
 
-    // Check if the skills section is already in the viewport on initial load
-    const isVisibleOnLoad =
-      window.innerHeight > skillsGridRef.current.getBoundingClientRect().top;
+      // Check if the skills section is already in the viewport on initial load
+      const isVisibleOnLoad =
+        window.innerHeight > skillsGridRef.current.getBoundingClientRect().top;
 
-    if (isVisibleOnLoad) {
-      // Play the animation immediately if it's already visible
-      gsap.from(cardsRef.current, {
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: "power2.out",
-      });
-    } else {
-      // Otherwise, set up the ScrollTrigger animation
-      gsap.from(cardsRef.current, {
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: skillsGridRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-    }
+      if (isVisibleOnLoad) {
+        // Play the animation immediately if it's already visible
+        gsap.from(cardsRef.current, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      } else {
+        // Otherwise, set up the ScrollTrigger animation
+        gsap.from(cardsRef.current, {
+          opacity: 0,
+          y: 50,
+          stagger: 0.2,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: skillsGridRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      }
+    }, skillsGridRef); // Scope to container
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -55,7 +60,10 @@ export default function SkillsSection() {
       >
         {/* Web Development Card */}
         <div
-          ref={(el) => (cardsRef.current[0] = el)}
+          // FIXED: Used curly braces
+          ref={(el) => {
+            cardsRef.current[0] = el;
+          }}
           className="skill-card p-6 rounded-lg bg-gray-900 border border-purple-500 shadow-lg shadow-purple-500/30"
         >
           <div className="flex items-center mb-4 text-purple-400">
@@ -72,7 +80,10 @@ export default function SkillsSection() {
 
         {/* Machine Learning / AI Card */}
         <div
-          ref={(el) => (cardsRef.current[1] = el)}
+          // FIXED: Used curly braces
+          ref={(el) => {
+            cardsRef.current[1] = el;
+          }}
           className="skill-card p-6 rounded-lg bg-gray-900 border border-blue-500 shadow-lg shadow-blue-500/30"
         >
           <div className="flex items-center mb-4 text-blue-400">
@@ -88,7 +99,10 @@ export default function SkillsSection() {
 
         {/* Tools & Platforms Card */}
         <div
-          ref={(el) => (cardsRef.current[2] = el)}
+          // FIXED: Used curly braces
+          ref={(el) => {
+            cardsRef.current[2] = el;
+          }}
           className="skill-card p-6 rounded-lg bg-gray-900 border border-green-500 shadow-lg shadow-green-500/30"
         >
           <div className="flex items-center mb-4 text-green-400">
@@ -104,7 +118,10 @@ export default function SkillsSection() {
 
         {/* UI/UX & Design Card */}
         <div
-          ref={(el) => (cardsRef.current[3] = el)}
+          // FIXED: Used curly braces
+          ref={(el) => {
+            cardsRef.current[3] = el;
+          }}
           className="skill-card p-6 rounded-lg bg-gray-900 border border-yellow-500 shadow-lg shadow-yellow-500/30"
         >
           <div className="flex items-center mb-4 text-yellow-400">
