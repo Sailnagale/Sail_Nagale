@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -15,7 +15,10 @@ export default function ContactForm() {
   // Add your email here
   const YOUR_EMAIL = "sail.nagale24@vit.edu"; // Replace with your email
 
-  const handleChange = (e) => {
+  // FIXED: Added strict typing for the event 'e'
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
