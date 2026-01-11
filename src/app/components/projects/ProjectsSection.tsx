@@ -12,25 +12,30 @@ export default function ProjectsSection() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    cardsRef.current.forEach((card) => {
-      if (card) {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 80%", // Start animation when the card is 80% from the top of the viewport
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
+    // Optional: Using gsap.context is better for cleanup in React 18+
+    const ctx = gsap.context(() => {
+      cardsRef.current.forEach((card) => {
+        if (card) {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
+      });
     });
+
+    return () => ctx.revert(); // Cleanup animation on unmount
   }, []);
 
   return (
@@ -40,7 +45,13 @@ export default function ProjectsSection() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project, index) => (
-          <div key={project.id} ref={(el) => (cardsRef.current[index] = el)}>
+          <div
+            key={project.id}
+            // FIXED: Used curly braces {} to return void
+            ref={(el) => {
+              cardsRef.current[index] = el;
+            }}
+          >
             <ProjectCard project={project} />
           </div>
         ))}
