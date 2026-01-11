@@ -102,8 +102,8 @@ export default function AboutSection() {
             <strong className="text-white font-medium">
               React and Flask
             </strong>{" "}
-            architectures. I don't just build models; I build reliable, patented
-            systems that work in the real world.
+            architectures. I don&apos;t just build models; I build reliable,
+            patented systems that work in the real world.
           </p>
         </div>
       </div>
